@@ -1,8 +1,7 @@
 #ifndef _LASER_ODOMETRY_CSM_LASER_ODOMETRY_CSM_H_
 #define _LASER_ODOMETRY_CSM_LASER_ODOMETRY_CSM_H_
 
-// @todo rely on csm rather than laser_scan_matcher pkg
-#include <csm/csm_all.h>  // csm defines min and max, but Eigen complains
+#include <csm/csm.h> // csm defines min and max, but Eigen complains
 #undef min
 #undef max
 

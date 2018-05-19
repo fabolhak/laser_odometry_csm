@@ -10,12 +10,8 @@ else()
 endif()
 
 find_package(catkin REQUIRED COMPONENTS
-  dynamic_reconfigure laser_odometry_core roscpp rosparam_handler
+  dynamic_reconfigure laser_odometry_core roscpp rosparam_handler csm
 )
-
-# Find csm project
-find_package(PkgConfig)
-pkg_check_modules(csm REQUIRED csm)
 
 generate_ros_parameter_files(
   cfg/LaserOdometryCsm.params
