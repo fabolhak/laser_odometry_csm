@@ -20,6 +20,8 @@ bool LaserOdometryCsm::configureImpl()
 
   kf_dist_linear_sq_ = kf_dist_linear_*kf_dist_linear_;
 
+  use_pred_as_first_guess_ = params_ptr_->use_pred_as_first_guess;
+
   input_.max_angular_correction_deg   = params_ptr_->max_angular_correction_deg;
   input_.max_linear_correction        = params_ptr_->max_linear_correction;
   input_.max_iterations               = params_ptr_->max_iterations;
@@ -75,9 +77,19 @@ bool LaserOdometryCsm::processImpl(const sensor_msgs::LaserScanConstPtr& laser_m
   prev_scan_->true_pose[1] = 0.0;
   prev_scan_->true_pose[2] = 0.0;
 
-  input_.first_guess[0] = prediction.translation()(0);
-  input_.first_guess[1] = prediction.translation()(1);
-  input_.first_guess[2] = utils::getYaw(prediction.rotation());
+  if(use_pred_as_first_guess_)
+  {
+    input_.first_guess[0] = prediction.translation()(0);
+    input_.first_guess[1] = prediction.translation()(1);
+    input_.first_guess[2] = utils::getYaw(prediction.rotation());
+  }
+  else
+  {
+    input_.first_guess[0] = 0.0;
+    input_.first_guess[1] = 0.0;
+    input_.first_guess[2] = 0.0;
+  }
+
 
   input_.laser_ref  = prev_scan_;
   input_.laser_sens = current_ldp_scan_;

@@ -94,4 +94,7 @@ gen.add("use_sigma_weights", paramtype="int", default=0, min=0, max=1, configura
         description="If 1, the field readings_sigma in the second scan is used to weight the "
         "correspondence by 1/sigma^2")
 
+gen.add("use_pred_as_first_guess", paramtype="int", default=0, min=0, max=1, configurable=True,
+        description="Use the prediction from the previous step as first guess for next step.")
+
 exit(gen.generate("laser_odometry_csm", "LaserOdometryCsm", "LaserOdometryCsm"))

@@ -41,6 +41,8 @@ namespace laser_odometry
     double kf_dist_linear_;
     double kf_dist_linear_sq_;
 
+    bool use_pred_as_first_guess_;
+
     std::vector<double> theta_;
     std::vector<double> a_cos_;
     std::vector<double> a_sin_;
