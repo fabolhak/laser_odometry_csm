@@ -232,7 +232,8 @@ void LaserOdometryCsm::isKeyFrame()
 
 void LaserOdometryCsm::isNotKeyFrame()
 {
-  ld_free(current_ldp_scan_);
+  ld_free(prev_scan_);
+  prev_scan_ = current_ldp_scan_;
 }
 
 void LaserOdometryCsm::updateLaserPose()
