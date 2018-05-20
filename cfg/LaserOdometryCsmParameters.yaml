@@ -4,13 +4,19 @@
 # Desc:	Maximum angular displacement between scans
 # Type:	double
 # [min,max]:	[0/6.28]
-kf_dist_angular: 0.174532925
+kf_dist_angular: 0.8
 
-# Name:	kf_dist_linear
-# Desc:	Maximum linear displacement between scans
+# Name:	kf_dist_linear_x
+# Desc:	Maximum linear displacement in x direction between scans
 # Type:	double
 # [min,max]:	[0/2]
-kf_dist_linear: 0.1
+kf_dist_linear_x: 0.5
+
+# Name:	kf_dist_linear_y
+# Desc:	Maximum linear displacement in y direction between scans
+# Type:	double
+# [min,max]:	[0/2]
+kf_dist_linear_y: 0.05
 
 # Name:	max_angular_correction_deg
 # Desc:	todo
@@ -172,4 +178,4 @@ use_sigma_weights: 0
 # Desc:	Use the prediction from the previous step as first guess for next step.
 # Type:	int
 # [min,max]:	[0/1]
-use_pred_as_first_guess: 1
+use_pred_as_first_guess: 0

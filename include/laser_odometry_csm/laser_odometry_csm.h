@@ -38,8 +38,8 @@ namespace laser_odometry
     ParametersPtr params_ptr_;
 
     double kf_dist_angular_;
-    double kf_dist_linear_;
-    double kf_dist_linear_sq_;
+    double kf_dist_linear_x_;
+    double kf_dist_linear_y_;
 
     bool use_pred_as_first_guess_;
 

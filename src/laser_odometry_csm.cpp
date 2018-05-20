@@ -15,10 +15,10 @@ bool LaserOdometryCsm::configureImpl()
   params_ptr_ = std::make_shared<Parameters>(private_nh_);
   params_ptr_->fromParamServer();
 
-  kf_dist_angular_ = params_ptr_->kf_dist_angular;
-  kf_dist_linear_  = params_ptr_->kf_dist_linear;
+  kf_dist_angular_   = params_ptr_->kf_dist_angular;
+  kf_dist_linear_x_  = params_ptr_->kf_dist_linear_x;
+  kf_dist_linear_y_  = params_ptr_->kf_dist_linear_y;
 
-  kf_dist_linear_sq_ = kf_dist_linear_*kf_dist_linear_;
 
   use_pred_as_first_guess_ = params_ptr_->use_pred_as_first_guess;
 
@@ -201,11 +201,27 @@ bool LaserOdometryCsm::initialize(const sensor_msgs::LaserScanConstPtr& scan_msg
 
 bool LaserOdometryCsm::isKeyFrame(const Transform& increment)
 {
-  if (std::fabs(utils::getYaw(increment.rotation())) > kf_dist_angular_) return true;
+  if (std::fabs(static_cast<float>(utils::getYaw(increment.rotation()))) > kf_dist_angular_)
+  {
+    ROS_DEBUG_STREAM("Yaw too big. Max allowed: " << kf_dist_angular_ << " actual: " << std::fabs(static_cast<float>(utils::getYaw(increment.rotation()))));
+    return false;
+  }
 
-  if (increment.translation().head<2>().squaredNorm() > kf_dist_linear_sq_) return true;
+  if (std::fabs(static_cast<float>(increment.translation()(0))) > kf_dist_linear_x_)
+  {
+    ROS_DEBUG_STREAM("X-dist too big. Max allowed: " << kf_dist_linear_x_ << " actual: " << std::fabs(static_cast<float>(increment.translation()(0))));
+    return false;
+  }
 
-  return false;
+  if (std::fabs(static_cast<float>(increment.translation()(1))) > kf_dist_linear_y_)
+  {
+      ROS_DEBUG_STREAM("Y-dist too big. Max allowed: " << kf_dist_linear_y_ << " actual: " << std::fabs(static_cast<float>(increment.translation()(1))));
+    return false;
+  }
+
+  ROS_DEBUG_STREAM("This looks like a good keyframe!");
+
+  return true;
 }
 
 void LaserOdometryCsm::isKeyFrame()
