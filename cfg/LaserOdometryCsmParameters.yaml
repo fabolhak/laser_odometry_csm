@@ -52,13 +52,13 @@ epsilon_theta: 1.0e-6
 # Desc:	Maximum distance for a correspondence to be valid
 # Type:	double
 # [min,max]:	[0/10]
-max_correspondence_dist: 0.3
+max_correspondence_dist: 0.5
 
 # Name:	sigma
 # Desc:	Noise in the scan (m)
 # Type:	double
 # [min,max]:	[0/10]
-sigma: 0.01
+sigma: 0.04
 
 # Name:	use_corr_tricks
 # Desc:	Use smart tricks for finding correspondences.
@@ -148,7 +148,7 @@ do_visibility_test: 0
 # Desc:	no two points in laser_sens can have the same corr.
 # Type:	int
 # [min,max]:	[0/1]
-outliers_remove_doubles: 1
+outliers_remove_doubles: 0
 
 # Name:	do_compute_covariance
 # Desc:	If 1, computes the covariance of ICP using the method http://purl.org/censi/2006/icpcov
